@@ -1,0 +1,13 @@
+.App {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Isso garante que a div ocupa toda a altura da tela */
+  }
+  
+  /* Estilo opcional para dar um espaçamento entre os elementos */
+  .App > div {
+    margin: 10px;
+    text-align: center;
+  }
