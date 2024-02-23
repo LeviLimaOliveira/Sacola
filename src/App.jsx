@@ -1,14 +1,12 @@
 import "./App.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const App = () => {
   const precoUnitario = 10.50;
 
   const [quantidade, setQuantidade] = useState(1);
   const [frete, setFrete] = useState(5.50);
-
-  const calcularTotal = () => precoUnitario * quantidade;
-
+  let [precoTotal, setprecoTotal] = useState(precoUnitario)
   const maisUm = () => {
     setQuantidade(quantidade + 1);
   };
@@ -19,14 +17,14 @@ const App = () => {
     }
   };
 
-  const atualizarFrete = () => {
-    const total = calcularTotal();
-    if (total >= 50) {
-      setFrete("Frete grátis!");
-    } else {
-      setFrete(5.50);
+  useEffect(() => {
+    if(precoTotal > 50) {
+      setFrete("frete gratis")
+    }else{
+      setFrete(precoTotal * 0.5)
     }
-  };
+    setprecoTotal(quantidade * precoUnitario)
+  },[quantidade]) 
 
   return (
     <div className="App">
@@ -35,13 +33,13 @@ const App = () => {
       </div>
       <div>
         <h2>Produtos</h2>
-        <button onClick={() => { menosUm(); atualizarFrete(); }}>-</button>
+        <button onClick={menosUm}>-</button>
         <p>{quantidade}</p>
-        <button onClick={() => { maisUm(); atualizarFrete(); }}>+</button>
+        <button onClick={maisUm}>+</button>
       </div>
       <div>
         <h3>Preço unitário: R$10,50</h3>
-        <h2>Total: {calcularTotal()}</h2>
+        <h2>Total: {precoTotal}</h2>
         <h3>Frete: {frete}</h3>
       </div>
     </div>
